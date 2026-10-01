@@ -967,6 +967,7 @@ MonoBehaviour:
   FoodDuration: 2
   FoodText: {fileID: 564666375}
   UnitS: {fileID: 9341540}
+  VillageF: 3
   food: 0
 --- !u!1 &932637104
 GameObject:
@@ -1225,6 +1226,8 @@ MonoBehaviour:
   EatDuration: 5
   foodS: {fileID: 689644194}
   UnitS: {fileID: 9341540}
+  KnightE: 3
+  VillageE: 1
 --- !u!1 &1278383337
 GameObject:
   m_ObjectHideFlags: 0
