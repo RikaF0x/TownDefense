@@ -46,4 +46,9 @@ public class UnitSystem : MonoBehaviour
         }
         
     }
+    public void ColUpdate()
+    {
+        KnightC.text = $"Knight: {Knight}";
+        VillageC.text = $"Villager: {Villager}";
+    }
 }
