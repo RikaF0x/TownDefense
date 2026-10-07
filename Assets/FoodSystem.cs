@@ -38,7 +38,7 @@ public class FoodSystem : MonoBehaviour
         {
             _currT = 0;
             FoodBar.fillAmount = 0;
-            food += UnitS.Villager*VillageF;
+            food += UnitS.villager*VillageF;
             TextUpdate();
         }
     }

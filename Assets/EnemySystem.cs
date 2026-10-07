@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class EnemySystem : MonoBehaviour
@@ -38,18 +39,18 @@ public class EnemySystem : MonoBehaviour
     }
     private void UnitKilled()
     {
-        if (UnitS.Knight >= enemy_C*mnozK)
+        if (UnitS.knight >= enemy_C*mnozK)
         {
-            UnitS.Knight -= enemy_C*mnozK;
+            UnitS.knight -= enemy_C*mnozK;
         }
         else
         {
-            UnitS.Knight = 0;
-            UnitS.Villager -= (enemy_C - UnitS.Knight/mnozK)*mnozV;
+            UnitS.knight = 0;
+            UnitS.villager -= (enemy_C - UnitS.knight/mnozK)*mnozV;
         }
-        if (UnitS.Villager <= 0)
+        if (UnitS.villager <= 0)
         {
-            Application.Quit();
+            SceneManager.LoadScene(2);
         }
         UnitS.ColUpdate();
     }

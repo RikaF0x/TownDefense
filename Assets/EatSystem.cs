@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class EatSystem : MonoBehaviour
@@ -26,8 +27,12 @@ public class EatSystem : MonoBehaviour
         {
             _currT = 0;
             EatBar.fillAmount = 0;
-            foodS.food -= UnitS.Villager*VillageE + UnitS.Knight*KnightE;
+            foodS.food -= UnitS.villager*VillageE + UnitS.knight*KnightE;
             foodS.TextUpdate();
+            if (foodS.food <= 0)
+            {
+                SceneManager.LoadScene(2);
+            }
         }
     }
 }

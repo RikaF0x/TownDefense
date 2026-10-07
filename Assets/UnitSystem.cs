@@ -1,54 +1,99 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class UnitSystem : MonoBehaviour
 {
     [SerializeField] private FoodSystem foodS;
-    [SerializeField] private Button BuyV;
-    [SerializeField] private Button BuyK;
-    [SerializeField] private int PriceV;
-    [SerializeField] private int PriceK;
-    [SerializeField] private TextMeshProUGUI VillageC;
-    [SerializeField] private TextMeshProUGUI KnightC;
-    public int Villager;
-    public int Knight;
-
+    [FormerlySerializedAs("BuyV")] [SerializeField] private Button buyV;
+    [FormerlySerializedAs("BuyK")] [SerializeField] private Button buyK;
+    [FormerlySerializedAs("PriceV")] [SerializeField] private int priceV;
+    [FormerlySerializedAs("PriceK")] [SerializeField] private int priceK;
+    [FormerlySerializedAs("VillageC")] [SerializeField] private TextMeshProUGUI villageC;
+    [FormerlySerializedAs("KnightC")] [SerializeField] private TextMeshProUGUI knightC;
+    [FormerlySerializedAs("VillageBar")] [SerializeField] private Image villageBar;
+    [SerializeField] private Image knightBar;
+    [SerializeField] private float durationV;
+    [SerializeField] private float durationK;
+    [FormerlySerializedAs("Villager")] public int villager;
+    [FormerlySerializedAs("Knight")] public int knight;
+    private float _currentTimeV;
+    private float _currentTimeK;
+    private int _villageT;
+    private int _knightT;
     private void Awake()
     {
-        BuyV.onClick.AddListener(BuyVSystem);
-        BuyK.onClick.AddListener(BuyKSystem);
+        buyV.onClick.AddListener(OnClickV);
+        buyK.onClick.AddListener(OnClickK);
     }
 
     private void Update()
     {
-        //foodS.food -= Villager;
+        if (_villageT == 1|| _knightT == 1)
+        {
+            TimerRun();
+        }
+    }
+
+    private void OnClickV()
+    {
+        _villageT = 1;
+    }
+
+    private void OnClickK()
+    {
+        _knightT = 1;
     }
 
     private void BuyVSystem()
     {
-        if (foodS.food >= PriceV)
+        if (foodS.food >= priceV)
         {
-            Villager++;
-            foodS.food -= PriceV;
+            villager++;
+            foodS.food -= priceV;
             foodS.TextUpdate();
-            VillageC.text = $"Villager: {Villager}";
+            villageC.text = $"Villager: {villager}";
+            _villageT = 0;
         }
     }
     private void BuyKSystem()
     {
-        if (foodS.food >= PriceK)
+        if (foodS.food >= priceK)
         {
-            Knight++;
-            foodS.food -= PriceK;
+            knight++;
+            foodS.food -= priceK;
             foodS.TextUpdate();
-            KnightC.text = $"Knight: {Knight}";
+            knightC.text = $"Knight: {knight}";
+            _knightT = 0;
         }
         
     }
     public void ColUpdate()
     {
-        KnightC.text = $"Knight: {Knight}";
-        VillageC.text = $"Villager: {Villager}";
+        knightC.text = $"Knight: {knight}";
+        villageC.text = $"Villager: {villager}";
+    }
+
+    private void TimerRun()
+    {
+        _currentTimeV += Time.deltaTime * _villageT;
+        _currentTimeK += Time.deltaTime * _knightT;
+        villageBar.fillAmount = _currentTimeV / durationV;
+        knightBar.fillAmount = _currentTimeK / durationK;
+        if (_currentTimeV / durationV >= 1)
+        {
+            BuyVSystem();
+            _currentTimeV = 0;
+            
+            villageBar.fillAmount = 0;
+        }
+        if (_currentTimeK / durationK >= 1)
+        {
+            BuyKSystem();
+            _currentTimeK = 0;
+            
+            knightBar.fillAmount = 0;
+        }
     }
 }
