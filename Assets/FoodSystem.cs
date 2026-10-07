@@ -10,6 +10,7 @@ public class FoodSystem : MonoBehaviour
     [SerializeField] private UnitSystem UnitS;
     [SerializeField] private int VillageF;
     public int food = 0;
+    [SerializeField] private PauseScript pauseS;
     
     private float _currT = 0;
     private void Awake()
@@ -19,7 +20,10 @@ public class FoodSystem : MonoBehaviour
 
     private void Update()
     {
-        FoodUpdate();
+        if (!pauseS.isPaused)
+        {
+            FoodUpdate();
+        }
     }
     public void TextUpdate()
     {

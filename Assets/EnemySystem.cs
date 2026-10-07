@@ -11,7 +11,9 @@ public class EnemySystem : MonoBehaviour
     [SerializeField] private int enemy_C;
     [SerializeField] private int mnozK;
     [SerializeField] private int mnozV;
-    [SerializeField] private TextMeshProUGUI enemy_text;    
+    [SerializeField] private TextMeshProUGUI enemy_text;   
+    [SerializeField] private PauseScript pauseS;
+    [SerializeField] private int enemyModifier;
     private float _currT;
     private void Awake()
     {
@@ -19,7 +21,10 @@ public class EnemySystem : MonoBehaviour
     }
     private void Update()
     {
-        EnemyUpdate();
+        if (!pauseS.isPaused)
+        {
+            EnemyUpdate();
+        }
     }
     private void EnemyUpdate()
     {
@@ -31,7 +36,7 @@ public class EnemySystem : MonoBehaviour
         else
         {
             UnitKilled();
-            enemy_C = enemy_C*enemy_C;
+            enemy_C = enemy_C*enemyModifier;
             _currT = 0;
             EnemyBar.fillAmount = 0;
             enemy_text.text = $"Enemy: {enemy_C}";

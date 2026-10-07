@@ -14,10 +14,11 @@ public class UnitSystem : MonoBehaviour
     [FormerlySerializedAs("KnightC")] [SerializeField] private TextMeshProUGUI knightC;
     [FormerlySerializedAs("VillageBar")] [SerializeField] private Image villageBar;
     [SerializeField] private Image knightBar;
-    [SerializeField] private float durationV;
-    [SerializeField] private float durationK;
+    [SerializeField] public float durationV;
+    [SerializeField] public float durationK;
     [FormerlySerializedAs("Villager")] public int villager;
     [FormerlySerializedAs("Knight")] public int knight;
+    [SerializeField] private PauseScript pauseS;
     private float _currentTimeV;
     private float _currentTimeK;
     private int _villageT;
@@ -30,7 +31,7 @@ public class UnitSystem : MonoBehaviour
 
     private void Update()
     {
-        if (_villageT == 1|| _knightT == 1)
+        if ((_villageT == 1|| _knightT == 1) && !pauseS.isPaused)
         {
             TimerRun();
         }
@@ -39,11 +40,13 @@ public class UnitSystem : MonoBehaviour
     private void OnClickV()
     {
         _villageT = 1;
+        buyV.interactable = false;
     }
 
     private void OnClickK()
     {
         _knightT = 1;
+        buyK.interactable = false;
     }
 
     private void BuyVSystem()
@@ -55,6 +58,7 @@ public class UnitSystem : MonoBehaviour
             foodS.TextUpdate();
             villageC.text = $"Villager: {villager}";
             _villageT = 0;
+            buyV.interactable = true;
         }
     }
     private void BuyKSystem()
@@ -66,6 +70,7 @@ public class UnitSystem : MonoBehaviour
             foodS.TextUpdate();
             knightC.text = $"Knight: {knight}";
             _knightT = 0;
+            buyK.interactable = true;
         }
         
     }

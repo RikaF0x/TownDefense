@@ -10,11 +10,15 @@ public class EatSystem : MonoBehaviour
     [SerializeField] private UnitSystem UnitS;
     [SerializeField] private int KnightE;
     [SerializeField] private int VillageE;
+    [SerializeField] private PauseScript pauseS;
     private float _currT;
 
     private void Update()
     {
-        EatUpdate();
+        if (!pauseS.isPaused)
+        {
+            EatUpdate();
+        }
     }
     private void EatUpdate()
     {
