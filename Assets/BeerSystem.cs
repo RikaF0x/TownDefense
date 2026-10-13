@@ -24,6 +24,7 @@ public class BeerSystem : MonoBehaviour
     {
         (beer, foodS.food) = (beer + beerMnoz, foodS.food - beerMnoz);
         UpdateBeerText();
+        foodS.TextUpdate();
     }
     private void UpdateBeerText()
     {
