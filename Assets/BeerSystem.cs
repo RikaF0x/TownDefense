@@ -23,9 +23,12 @@ public class BeerSystem : MonoBehaviour
     private void Makebeer()
     {
         (beer, foodS.food) = (beer + beerMnoz, foodS.food - beerMnoz);
+        UpdateBeerText();
+    }
+    private void UpdateBeerText()
+    {
         beerCol.text = $"Beer: {beer}";
     }
-
     public void UpdateBeerBtn()
     {
         buyBtn.interactable = foodS.food >= beerMnoz;
@@ -41,5 +44,7 @@ public class BeerSystem : MonoBehaviour
     {
         UnitS.durationK *= vDur;
         UnitS.durationV *= kDur;
+        beer -= beerMnoz;
+        UpdateBeerText();
     }
 }
